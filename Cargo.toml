@@ -1,0 +1,11 @@
+[package]
+name = "exonum-blockchain"
+version = "0.1.0"
+authors = ["zdenal <nevralaz@gmail.com>"]
+
+[dependencies]
+exonum = "0.9.5"
+serde = "1.0.0"
+serde_json = "1.0.0"
+serde_derive = "1.0.0"
+failure = "0.1.1"
