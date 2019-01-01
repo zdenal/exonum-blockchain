@@ -1,11 +1,11 @@
 extern crate exonum;
-extern crate exonum_blockchain as cryptocurrency;
+extern crate exonum_blockchain;
 
 use exonum::blockchain::{GenesisConfig, ValidatorKeys};
 use exonum::node::{Node, NodeApiConfig, NodeConfig};
 use exonum::storage::MemoryDB;
 
-use cryptocurrency::CurrencyService;
+use exonum_blockchain::currency::service::CurrencyService;
 
 fn node_config() -> NodeConfig {
     let (consensus_public_key, consensus_secret_key) = exonum::crypto::gen_keypair();
