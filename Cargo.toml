@@ -1,5 +1,5 @@
 [package]
-name = "exonum-blockchain"
+name = "exonum_blockchain"
 version = "0.1.0"
 authors = ["zdenal <nevralaz@gmail.com>"]
 

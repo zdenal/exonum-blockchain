@@ -637,7 +637,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "exonum-blockchain"
+name = "exonum_blockchain"
 version = "0.1.0"
 dependencies = [
  "exonum 0.9.5 (registry+https://github.com/rust-lang/crates.io-index)",
