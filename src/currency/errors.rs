@@ -1,4 +1,4 @@
-use exonum::blockchain::{ExecutionError};
+use exonum::blockchain::ExecutionError;
 
 #[derive(Debug, Fail)]
 #[repr(u8)]

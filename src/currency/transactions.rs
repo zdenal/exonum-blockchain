@@ -1,13 +1,13 @@
 use exonum::{
     blockchain::{ExecutionResult, Transaction},
-    storage::{Fork},
-    crypto::{PublicKey},
-    messages::{Message},
+    crypto::PublicKey,
+    messages::Message,
+    storage::Fork,
 };
 
 use currency::{
-    schema::{Wallet, CurrencySchema},
-    errors::{Error}
+    errors::Error,
+    schema::{CurrencySchema, Wallet},
 };
 
 // Service identifier
@@ -56,8 +56,7 @@ impl Transaction for TxCreateWallet {
 
 impl Transaction for TxTransfer {
     fn verify(&self) -> bool {
-         (*self.from() != *self.to()) &&
-             self.verify_signature(self.from())
+        (*self.from() != *self.to()) && self.verify_signature(self.from())
     }
 
     fn execute(&self, view: &mut Fork) -> ExecutionResult {

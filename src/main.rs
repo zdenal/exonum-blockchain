@@ -26,7 +26,7 @@ fn node_config() -> NodeConfig {
     let peer_address = "0.0.0.0:2000".parse().unwrap();
 
     // Return this value from `node_config` function
-     NodeConfig {
+    NodeConfig {
         listen_address: peer_address,
         service_public_key,
         service_secret_key,
@@ -40,8 +40,7 @@ fn node_config() -> NodeConfig {
         mempool: Default::default(),
         services_configs: Default::default(),
         database: Default::default(),
-     }
-
+    }
 }
 
 fn main() {

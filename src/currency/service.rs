@@ -1,16 +1,16 @@
 use exonum::{
-    api::{ServiceApiState, ServiceApiBuilder, self},
+    api::{self, ServiceApiBuilder, ServiceApiState},
     blockchain::{Service, Transaction, TransactionSet},
     crypto::{Hash, PublicKey},
     encoding,
-    messages::{RawTransaction},
-    node::{TransactionSend},
-    storage::{Snapshot},
+    messages::RawTransaction,
+    node::TransactionSend,
+    storage::Snapshot,
 };
 
 use currency::{
-    schema::{Wallet, CurrencySchema},
-    transactions::CurrencyTransactions
+    schema::{CurrencySchema, Wallet},
+    transactions::CurrencyTransactions,
 };
 
 // Service identifier
@@ -25,8 +25,10 @@ pub struct TransactionResponse {
 }
 
 impl CryptocurrencyApi {
-    fn post_transaction(state: &ServiceApiState, query: CurrencyTransactions)
-     -> api::Result<TransactionResponse> {
+    fn post_transaction(
+        state: &ServiceApiState,
+        query: CurrencyTransactions,
+    ) -> api::Result<TransactionResponse> {
         let transaction: Box<Transaction> = query.into();
         let tx_hash = transaction.hash();
         state.sender().send(transaction)?;
@@ -43,8 +45,7 @@ struct WalletQuery {
 
 impl CryptocurrencyApi {
     /// Endpoint for getting a single wallet.
-    fn get_wallet(state: &ServiceApiState, query: WalletQuery)
-     -> api::Result<Wallet> {
+    fn get_wallet(state: &ServiceApiState, query: WalletQuery) -> api::Result<Wallet> {
         let snapshot = state.snapshot();
         let schema = CurrencySchema::new(snapshot);
         schema
@@ -53,8 +54,7 @@ impl CryptocurrencyApi {
     }
 
     /// Endpoint for dumping all wallets from the storage.
-    fn get_wallets(state: &ServiceApiState, _query: ())
-     -> api::Result<Vec<Wallet>> {
+    fn get_wallets(state: &ServiceApiState, _query: ()) -> api::Result<Vec<Wallet>> {
         let snapshot = state.snapshot();
         let schema = CurrencySchema::new(snapshot);
         let idx = schema.wallets();
@@ -81,13 +81,15 @@ impl CryptocurrencyApi {
 pub struct CurrencyService;
 
 impl Service for CurrencyService {
-    fn service_name(&self) -> &'static str { "cryptocurrency" }
+    fn service_name(&self) -> &'static str {
+        "cryptocurrency"
+    }
 
-    fn service_id(&self) -> u16 { SERVICE_ID }
+    fn service_id(&self) -> u16 {
+        SERVICE_ID
+    }
 
-    fn tx_from_raw(&self, raw: RawTransaction) ->
-        Result<Box<Transaction>, encoding::Error>
-    {
+    fn tx_from_raw(&self, raw: RawTransaction) -> Result<Box<Transaction>, encoding::Error> {
         let tx = CurrencyTransactions::tx_from_raw(raw)?;
         Ok(tx.into())
     }
@@ -100,4 +102,3 @@ impl Service for CurrencyService {
         CryptocurrencyApi::wire(builder)
     }
 }
-

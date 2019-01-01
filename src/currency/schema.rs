@@ -1,5 +1,5 @@
+use exonum::crypto::PublicKey;
 use exonum::storage::{Fork, MapIndex, Snapshot};
-use exonum::crypto::{PublicKey};
 
 encoding_struct! {
     struct Wallet {
