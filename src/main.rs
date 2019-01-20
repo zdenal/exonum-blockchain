@@ -6,6 +6,7 @@ use exonum::node::{Node, NodeApiConfig, NodeConfig};
 use exonum::storage::MemoryDB;
 
 use exonum_blockchain::currency::service::CurrencyService;
+use exonum_blockchain::voting::service::VotingService;
 
 fn node_config() -> NodeConfig {
     let (consensus_public_key, consensus_secret_key) = exonum::crypto::gen_keypair();
@@ -49,7 +50,7 @@ fn main() {
     println!("Creating in-memory database...");
     let node = Node::new(
         MemoryDB::new(),
-        vec![Box::new(CurrencyService)],
+        vec![Box::new(CurrencyService), Box::new(VotingService)],
         node_config(),
         None,
     );
