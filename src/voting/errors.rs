@@ -7,6 +7,9 @@ use exonum::blockchain::ExecutionError;
 pub enum Error {
     #[fail(display = "Candidate already exists")]
     CandidateAlreadyExists = 0,
+
+    #[fail(display = "Create Candidate denied")]
+    CreateCandidateDenied = 1,
 }
 
 impl From<Error> for ExecutionError {

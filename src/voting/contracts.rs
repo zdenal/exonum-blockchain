@@ -7,12 +7,18 @@ use voting::{
 };
 
 const INIT_VOTES: u64 = 0;
+const AUTHORITY: &str = "c97923414103b2f40ca1fa798bca4d514dc07813e7ab720859bc74848e491550";
 
 impl Transaction for TxCreateCandidate {
     fn execute(&self, mut context: TransactionContext) -> ExecutionResult {
         let author = context.author();
         let view = context.fork();
         let mut schema = VotingSchema::new(view);
+
+        if author.to_hex() != AUTHORITY {
+            println!("Create the candidate denied: {:?}", author);
+            Err(Error::CreateCandidateDenied)?
+        }
 
         if schema.candidate(&author).is_none() {
             let candidate = Candidate::new(&author, &self.name, INIT_VOTES);
