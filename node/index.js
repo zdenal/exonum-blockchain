@@ -5,6 +5,7 @@ const Type = $protobuf.Type;
 const Field = $protobuf.Field;
 
 CURRENCY_SERVICE_ID = 1;
+VOTING_SERVICE_ID = 2;
 TRANSACTIONS_URL = 'http://127.0.0.1:8000/api/explorer/v1/transactions';
 
 // For generate new one use
@@ -24,20 +25,35 @@ const CreateWalletTx = Exonum.newTransaction({
   schema: CreateSchema,
 });
 
-// Send transaction into blockchain
+const CreateCandidatetTx = Exonum.newTransaction({
+  author: keyPair.publicKey,
+  service_id: VOTING_SERVICE_ID,
+  message_id: 0,
+  schema: CreateSchema,
+});
 
 function createWallet(name, keyPair) {
   const data = {
     name: name,
   };
 
-  console.log('data: ', data);
-  const signature = CreateWalletTx.sign(keyPair.secretKey, data);
-  console.log('signature: ', signature);
+  //const signature = CreateWalletTx.sign(keyPair.secretKey, data);
+  //console.log('signature: ', signature);
 
   CreateWalletTx.send(TRANSACTIONS_URL, data, keyPair.secretKey).catch(e =>
     console.log(e),
   );
 }
 
-createWallet('John', keyPair);
+function createCandidate(name, keyPair) {
+  const data = {
+    name: name,
+  };
+
+  CreateCandidatetTx.send(TRANSACTIONS_URL, data, keyPair.secretKey).catch(e =>
+    console.log(e),
+  );
+}
+
+//createWallet('John', keyPair);
+createCandidate('John', keyPair);

@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+import "helpers.proto";
+
+message Candidate {
+  exonum.PublicKey pub_key = 1;
+  string name = 2;
+  uint64 votes = 3;
+}
+
+message TxCreateCandidate {
+  string name = 1;
+}
+
+message TxVote {
+  exonum.PublicKey to = 1;
+  uint64 seed = 3;
+}

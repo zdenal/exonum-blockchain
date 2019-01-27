@@ -7,6 +7,11 @@ fn main() {
     protobuf_generate(
         "src/currency/proto",
         &["src/currency/proto", &exonum_protos],
-        "protobuf_mod.rs",
+        "currency_protobuf_mod.rs",
+    );
+    protobuf_generate(
+        "src/voting/proto",
+        &["src/voting/proto", &exonum_protos],
+        "voting_protobuf_mod.rs",
     );
 }
