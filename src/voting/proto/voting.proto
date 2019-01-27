@@ -8,11 +8,18 @@ message Candidate {
   uint64 votes = 3;
 }
 
+message Vote {
+  exonum.PublicKey voter = 1;
+  exonum.PublicKey candidate = 2;
+}
+
 message TxCreateCandidate {
-  string name = 1;
+  exonum.PublicKey pub_key = 1;
+  string name = 2;
 }
 
 message TxVote {
-  exonum.PublicKey to = 1;
+  exonum.PublicKey voter = 1;
+  exonum.PublicKey candidate = 2;
   uint64 seed = 3;
 }

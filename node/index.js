@@ -9,27 +9,34 @@ VOTING_SERVICE_ID = 2;
 TRANSACTIONS_URL = 'http://127.0.0.1:8000/api/explorer/v1/transactions';
 
 // For generate new one use
-const keyPair = Exonum.keyPair();
-//keyPair = {
-//publicKey: 'c97923414103b2f40ca1fa798bca4d514dc07813e7ab720859bc74848e491550',
-//secretKey:
-//'a4033ba9c9ee6098f32a6f904f19a7feea155c36c5116d578a8399f3d2eea67dc97923414103b2f40ca1fa798bca4d514dc07813e7ab720859bc74848e491550',
-//};
+const candidateKeyPair = Exonum.keyPair();
+const voterKeyPair = Exonum.keyPair();
+authorityKeyPair = {
+  publicKey: 'c97923414103b2f40ca1fa798bca4d514dc07813e7ab720859bc74848e491550',
+  secretKey:
+    'a4033ba9c9ee6098f32a6f904f19a7feea155c36c5116d578a8399f3d2eea67dc97923414103b2f40ca1fa798bca4d514dc07813e7ab720859bc74848e491550',
+};
 
-let CreateSchema = new Type('CreateSchema').add(new Field('name', 1, 'string'));
+const CreateSchema = new Type('CreateSchema').add(
+  new Field('name', 1, 'string'),
+);
 
 const CreateWalletTx = Exonum.newTransaction({
-  author: keyPair.publicKey,
+  author: authorityKeyPair.publicKey,
   service_id: CURRENCY_SERVICE_ID,
   message_id: 0,
   schema: CreateSchema,
 });
 
+const CreateCandidateSchema = new Type('CreateCandidateSchema')
+  .add(new Field('pub_key', 1, 'string'))
+  .add(new Field('name', 2, 'string'));
+
 const CreateCandidatetTx = Exonum.newTransaction({
-  author: keyPair.publicKey,
+  author: candidateKeyPair.publicKey,
   service_id: VOTING_SERVICE_ID,
   message_id: 0,
-  schema: CreateSchema,
+  schema: CreateCandidateSchema,
 });
 
 function createWallet(name, keyPair) {
@@ -45,15 +52,20 @@ function createWallet(name, keyPair) {
   );
 }
 
-function createCandidate(name, keyPair) {
+function createCandidate(name, candidateKeyPair, authorityKeyPair) {
   const data = {
+    pub_key: authorityKeyPair.publicKey,
     name: name,
   };
 
-  CreateCandidatetTx.send(TRANSACTIONS_URL, data, keyPair.secretKey)
+  console.log(data);
+  //const signature = CreateCandidatetTx.sign(authorityKeyPair.secretKey, data);
+  //console.log('signature: ', signature);
+
+  CreateCandidatetTx.send(TRANSACTIONS_URL, data, candidateKeyPair.secretKey)
     .then(r => console.log(r))
     .catch(e => console.log(e));
 }
 
-//createWallet('John', keyPair);
-createCandidate('John', keyPair);
+//createWallet('John', authorityKeyPair);
+createCandidate('Alois', candidateKeyPair, authorityKeyPair);

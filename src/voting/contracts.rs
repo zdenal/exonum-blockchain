@@ -3,7 +3,7 @@ use exonum::blockchain::{ExecutionResult, Transaction, TransactionContext};
 use voting::{
     errors::Error,
     transactions::{TxCreateCandidate, TxVote},
-    schema::{VotingSchema, Candidate}
+    schema::{VotingSchema, Candidate, Vote}
 };
 
 const INIT_VOTES: u64 = 0;
@@ -20,10 +20,10 @@ impl Transaction for TxCreateCandidate {
             Err(Error::CreateCandidateDenied)?
         }
 
-        if schema.candidate(&author).is_none() {
-            let candidate = Candidate::new(&author, &self.name, INIT_VOTES);
+        if schema.candidate(&self.pub_key).is_none() {
+            let candidate = Candidate::new(&self.pub_key, &self.name, INIT_VOTES);
             println!("Create the candidate: {:?}", candidate);
-            schema.candidates_mut().put(&author, candidate);
+            schema.candidates_mut().put(&self.pub_key, candidate);
             Ok(())
         } else {
             Err(Error::CandidateAlreadyExists)?
@@ -36,20 +36,22 @@ impl Transaction for TxVote {
         let author = context.author();
         let view = context.fork();
 
-        if author == self.to {
+        if self.voter == self.candidate {
             Err(Error::SenderSameAsReceiver)?
         }
 
         let mut schema = VotingSchema::new(view);
 
-        let candidate = match schema.candidate(&self.to) {
+        let candidate = match schema.candidate(&self.candidate) {
             Some(val) => val,
             None => Err(Error::CandidateNotFound)?,
         };
 
+        let vote = Vote::new(&self.voter, &self.candidate);
         let candidate = candidate.increase_votes();
         println!("Voting: {:?} => {:?}", author, candidate);
         schema.candidates_mut().put(&author, candidate);
+        schema.votes_mut().put(&self.voter, vote);
 
         Ok(())
     }
