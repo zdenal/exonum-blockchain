@@ -1,0 +1,15 @@
+{
+  "name": "exonum-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "exonum-client": "^0.16.6",
+    "protobufjs": "^6.8.8"
+  }
+}

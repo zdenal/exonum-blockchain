@@ -1,0 +1,26 @@
+[package]
+name = "exonum-blockchain"
+version = "0.1.0"
+authors = ["zdenal <nevralaz@gmail.com>"]
+
+#[lib]
+#name = "exonum_blockchain"
+#crate-type = ["dylib", "rlib"]
+
+[dependencies]
+exonum = "0.10.3"
+exonum-derive = "0.10.0"
+failure = "0.1.5"
+serde = "1.0.0"
+serde_derive = "1.0.0"
+serde_json = "1.0.0"
+protobuf = "2.2.0"
+
+[dev-dependencies]
+exonum-testkit = "0.10.1"
+rand = "0.6.4"
+pretty_assertions = "0.5.1"
+assert_matches = "1.2.0"
+
+[build-dependencies]
+exonum-build = "0.10.0"
