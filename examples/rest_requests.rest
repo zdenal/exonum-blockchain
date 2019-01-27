@@ -1,3 +1,7 @@
+#############################################
+## Currency
+#############################################
+
 # Create Alice wallet
 http://127.0.0.1:8000/api/
 POST explorer/v1/transactions
@@ -26,3 +30,11 @@ GET services/cryptocurrency/v1/wallets
 # Get Alice wallet info
 http://127.0.0.1:8000/api/
 GET services/cryptocurrency/v1/wallet?pub_key=114e49a764813f2e92609d103d90f23dc5b7e94e74b3e08134c1272441614bd9
+
+#############################################
+## Voting
+#############################################
+
+# Get candidates info
+http://127.0.0.1:8000/api/
+GET services/voting/v1/candidates
