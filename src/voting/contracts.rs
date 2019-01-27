@@ -33,7 +33,24 @@ impl Transaction for TxCreateCandidate {
 
 impl Transaction for TxVote {
     fn execute(&self, mut context: TransactionContext) -> ExecutionResult {
-        // IMPLEMENT
+        let author = context.author();
+        let view = context.fork();
+
+        if author == self.to {
+            Err(Error::SenderSameAsReceiver)?
+        }
+
+        let mut schema = VotingSchema::new(view);
+
+        let candidate = match schema.candidate(&self.to) {
+            Some(val) => val,
+            None => Err(Error::CandidateNotFound)?,
+        };
+
+        let candidate = candidate.increase_votes();
+        println!("Voting: {:?} => {:?}", author, candidate);
+        schema.candidates_mut().put(&author, candidate);
+
         Ok(())
     }
 }

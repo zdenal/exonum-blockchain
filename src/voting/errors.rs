@@ -10,6 +10,12 @@ pub enum Error {
 
     #[fail(display = "Create Candidate denied")]
     CreateCandidateDenied = 1,
+
+    #[fail(display = "Candidate doesn't exist")]
+    CandidateNotFound = 2,
+
+    #[fail(display = "Sender same as receiver")]
+    SenderSameAsReceiver = 3,
 }
 
 impl From<Error> for ExecutionError {
