@@ -8,9 +8,9 @@ use voting::schema::{VotingSchema, Candidate};
 #[derive(Debug, Clone)]
 pub struct VotingApi;
 
-#[derive(Debug, Serialize, Deserialize, Clone, Copy)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct CandidateQuery {
-    pub pub_key: PublicKey,
+    pub pub_key: String,
 }
 
 impl VotingApi {

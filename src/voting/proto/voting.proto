@@ -3,23 +3,23 @@ syntax = "proto3";
 import "helpers.proto";
 
 message Candidate {
-  exonum.PublicKey pub_key = 1;
+  string pub_key = 1;
   string name = 2;
   uint64 votes = 3;
 }
 
 message Vote {
-  exonum.PublicKey voter = 1;
-  exonum.PublicKey candidate = 2;
+  string voter = 1;
+  string candidate = 2;
 }
 
 message TxCreateCandidate {
-  exonum.PublicKey pub_key = 1;
+  string pub_key = 1;
   string name = 2;
 }
 
 message TxVote {
-  exonum.PublicKey voter = 1;
-  exonum.PublicKey candidate = 2;
+  string voter = 1;
+  string candidate = 2;
   uint64 seed = 3;
 }

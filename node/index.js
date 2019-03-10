@@ -33,7 +33,7 @@ const CreateCandidateSchema = new Type('CreateCandidateSchema')
   .add(new Field('name', 2, 'string'));
 
 const CreateCandidatetTx = Exonum.newTransaction({
-  author: candidateKeyPair.publicKey,
+  author: authorityKeyPair.publicKey,
   service_id: VOTING_SERVICE_ID,
   message_id: 0,
   schema: CreateCandidateSchema,
@@ -62,7 +62,7 @@ function createCandidate(name, candidateKeyPair, authorityKeyPair) {
   //const signature = CreateCandidatetTx.sign(authorityKeyPair.secretKey, data);
   //console.log('signature: ', signature);
 
-  CreateCandidatetTx.send(TRANSACTIONS_URL, data, candidateKeyPair.secretKey)
+  CreateCandidatetTx.send(TRANSACTIONS_URL, data, authorityKeyPair.secretKey)
     .then(r => console.log(r))
     .catch(e => console.log(e));
 }

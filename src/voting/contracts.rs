@@ -50,7 +50,7 @@ impl Transaction for TxVote {
         let vote = Vote::new(&self.voter, &self.candidate);
         let candidate = candidate.increase_votes();
         println!("Voting: {:?} => {:?}", author, candidate);
-        schema.candidates_mut().put(&author, candidate);
+        schema.candidates_mut().put(&self.candidate, candidate);
         schema.votes_mut().put(&self.voter, vote);
 
         Ok(())
