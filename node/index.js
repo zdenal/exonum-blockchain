@@ -1,4 +1,6 @@
 const Exonum = require('exonum-client');
+const axios = require('axios');
+const cTable = require('console.table');
 const $protobuf = require('protobufjs/light');
 const Root = $protobuf.Root;
 const Type = $protobuf.Type;
@@ -67,5 +69,13 @@ function createCandidate(name, candidateKeyPair, authorityKeyPair) {
     .catch(e => console.log(e));
 }
 
+async function getCandidates() {
+  const response = await axios.get(
+    'http://127.0.0.1:8000/api/services/voting/v1/candidates',
+  );
+  console.table(response.data);
+}
+
 //createWallet('John', authorityKeyPair);
-createCandidate('Alois', candidateKeyPair, authorityKeyPair);
+//createCandidate('Alois', candidateKeyPair, authorityKeyPair);
+getCandidates();
