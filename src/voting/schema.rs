@@ -53,7 +53,7 @@ impl<T: AsRef<dyn Snapshot>> VotingSchema<T> {
     }
 
     pub fn candidates(&self) -> MapIndex<&dyn Snapshot, String, Candidate> {
-        MapIndex::new("cryptocurrency.candidates", self.view.as_ref())
+        MapIndex::new("voting.candidates", self.view.as_ref())
     }
 
     pub fn candidate(&self, pub_key: &str) -> Option<Candidate> {
@@ -61,7 +61,7 @@ impl<T: AsRef<dyn Snapshot>> VotingSchema<T> {
     }
 
     pub fn votes(&self) -> MapIndex<&dyn Snapshot, String, Vote> {
-        MapIndex::new("cryptocurrency.votes", self.view.as_ref())
+        MapIndex::new("voting.votes", self.view.as_ref())
     }
 
     pub fn vote(&self, pub_key: &str) -> Option<Vote> {
@@ -71,10 +71,10 @@ impl<T: AsRef<dyn Snapshot>> VotingSchema<T> {
 
 impl<'a> VotingSchema<&'a mut Fork> {
     pub fn candidates_mut(&mut self) -> MapIndex<&mut Fork, String, Candidate> {
-        MapIndex::new("cryptocurrency.candidates", &mut self.view)
+        MapIndex::new("voting.candidates", &mut self.view)
     }
     pub fn votes_mut(&mut self) -> MapIndex<&mut Fork, String, Vote> {
-        MapIndex::new("cryptocurrency.votes", &mut self.view)
+        MapIndex::new("voting.votes", &mut self.view)
     }
 }
 

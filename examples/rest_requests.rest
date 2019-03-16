@@ -38,3 +38,12 @@ GET services/cryptocurrency/v1/wallet?pub_key=114e49a764813f2e92609d103d90f23dc5
 # Get candidates info
 http://127.0.0.1:8000/api/
 GET services/voting/v1/candidates
+
+#############################################
+## Chain
+#############################################
+http://127.0.0.1:8000/api/
+GET services/chain/v1/blocks
+
+http://127.0.0.1:8000/api/
+GET services/chain/v1/block_transactions?height=142

@@ -76,6 +76,27 @@ async function getCandidates() {
   console.table(response.data);
 }
 
+async function getBlocks() {
+  const response = await axios.get(
+    'http://127.0.0.1:8000/api/services/chain/v1/blocks',
+  );
+  console.table(response.data.filter(block => block.tx_count > 0));
+}
+
+async function getBlockTransactions(height) {
+  const response = await axios.get(
+    'http://127.0.0.1:8000/api/services/chain/v1/block_transactions',
+    {
+      params: {
+        height: height,
+      },
+    },
+  );
+  console.log(response.data);
+}
+
 //createWallet('John', authorityKeyPair);
 //createCandidate('Alois', candidateKeyPair, authorityKeyPair);
-getCandidates();
+//getCandidates();
+//getBlocks();
+getBlockTransactions(1904);

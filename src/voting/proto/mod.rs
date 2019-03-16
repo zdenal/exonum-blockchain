@@ -5,4 +5,4 @@ pub use self::voting::{TxCreateCandidate, TxVote, Candidate, Vote};
 
 include!(concat!(env!("OUT_DIR"), "/voting_protobuf_mod.rs"));
 
-use exonum::proto::schema::*;
+//use exonum::proto::schema::*;

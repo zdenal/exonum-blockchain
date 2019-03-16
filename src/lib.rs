@@ -9,3 +9,4 @@ extern crate serde_derive;
 
 pub mod currency;
 pub mod voting;
+pub mod chain;

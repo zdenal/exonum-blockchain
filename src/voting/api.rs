@@ -1,6 +1,5 @@
 use exonum::{
     api::{self, ServiceApiBuilder, ServiceApiState},
-    crypto::PublicKey,
 };
 
 use voting::schema::{VotingSchema, Candidate};

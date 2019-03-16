@@ -1,9 +1,9 @@
 use voting::proto;
 //use super::SERVICE_ID;
-use exonum::{
+//use exonum::{
     //crypto::{PublicKey, SecretKey},
-    messages::{Message, RawTransaction, Signed},
-};
+    //messages::{Message, RawTransaction, Signed},
+//};
 #[derive(Serialize, Deserialize, Clone, Debug, ProtobufConvert)]
 #[exonum(pb = "proto::TxCreateCandidate")]
 pub struct TxCreateCandidate {
