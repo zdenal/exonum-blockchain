@@ -29,11 +29,17 @@ impl ChainApi {
         Ok(transactions)
     }
 
+    pub fn get_height(state: &ServiceApiState, _query: ()) -> api::Result<Height> {
+        let schema = Schema::new(state.snapshot());
+        Ok(schema.height())
+    }
+
     pub fn wire(builder: &mut ServiceApiBuilder) {
         builder
             .public_scope()
             .endpoint("v1/blocks", Self::get_blocks)
-            .endpoint("v1/block_transactions", Self::get_block_transactions);
+            .endpoint("v1/block_transactions", Self::get_block_transactions)
+            .endpoint("v1/height", Self::get_height);
     }
 }
 

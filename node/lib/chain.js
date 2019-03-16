@@ -19,3 +19,10 @@ exports.getBlockTransactions = async function(height) {
   );
   console.log(response.data);
 };
+
+exports.getHeight = async function() {
+  const response = await axios.get(
+    'http://127.0.0.1:8000/api/services/chain/v1/height',
+  );
+  console.log(response.data);
+};
