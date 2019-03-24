@@ -2,6 +2,7 @@ extern crate exonum;
 extern crate exonum_blockchain;
 
 use exonum::{
+    api::backends::actix::AllowOrigin,
     blockchain::{GenesisConfig, ValidatorKeys},
     node::{Node, NodeApiConfig, NodeConfig},
     storage::MemoryDB,
@@ -23,6 +24,7 @@ fn node_config() -> NodeConfig {
     let api_address = "0.0.0.0:8000".parse().unwrap();
     let api_cfg = NodeApiConfig {
         public_api_address: Some(api_address),
+        public_allow_origin: Some(AllowOrigin::Any),
         ..Default::default()
     };
 
