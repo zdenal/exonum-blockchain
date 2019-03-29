@@ -25,19 +25,19 @@ pub enum CurrencyTransactions {
     Transfer(TxTransfer),
 }
 
-    impl TxCreateWallet {
-        #[doc(hidden)]
-        pub fn sign(name: &str, pk: &PublicKey, sk: &SecretKey) -> Signed<RawTransaction> {
-            Message::sign_transaction(
-                Self {
-                    name: name.to_owned(),
-                },
-                SERVICE_ID,
-                *pk,
-                sk,
-                )
-        }
+impl TxCreateWallet {
+    #[doc(hidden)]
+    pub fn sign(name: &str, pk: &PublicKey, sk: &SecretKey) -> Signed<RawTransaction> {
+        Message::sign_transaction(
+            Self {
+                name: name.to_owned(),
+            },
+            SERVICE_ID,
+            *pk,
+            sk,
+            )
     }
+}
 
 impl TxTransfer {
     #[doc(hidden)]

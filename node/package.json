@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.18.0",
+    "console.table": "^0.10.0",
     "exonum-client": "^0.16.6",
     "protobufjs": "^6.8.8"
   }

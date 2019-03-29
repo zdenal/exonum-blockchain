@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+import "helpers.proto";
+
+message Candidate {
+  string pub_key = 1;
+  string name = 2;
+  uint64 votes = 3;
+}
+
+message Vote {
+  string voter = 1;
+  string candidate = 2;
+}
+
+message TxCreateCandidate {
+  string pub_key = 1;
+  string name = 2;
+}
+
+message TxVote {
+  string voter = 1;
+  string candidate = 2;
+  uint64 seed = 3;
+}

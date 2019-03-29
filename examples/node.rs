@@ -2,11 +2,14 @@ extern crate exonum;
 extern crate exonum_blockchain;
 
 use exonum::{
+    api::backends::actix::AllowOrigin,
     blockchain::{GenesisConfig, ValidatorKeys},
     node::{Node, NodeApiConfig, NodeConfig},
     storage::MemoryDB,
 };
 use exonum_blockchain::currency::CurrencyService;
+use exonum_blockchain::voting::VotingService;
+use exonum_blockchain::chain::ChainService;
 
 fn node_config() -> NodeConfig {
     let (consensus_public_key, consensus_secret_key) = exonum::crypto::gen_keypair();
@@ -21,6 +24,7 @@ fn node_config() -> NodeConfig {
     let api_address = "0.0.0.0:8000".parse().unwrap();
     let api_cfg = NodeApiConfig {
         public_api_address: Some(api_address),
+        public_allow_origin: Some(AllowOrigin::Any),
         ..Default::default()
     };
 
@@ -50,7 +54,7 @@ fn main() {
     println!("Creating in-memory database...");
     let node = Node::new(
         MemoryDB::new(),
-        vec![Box::new(CurrencyService)],
+        vec![Box::new(CurrencyService), Box::new(VotingService), Box::new(ChainService)],
         node_config(),
         None,
     );
